@@ -3,12 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.qiao</groupId>
+        <groupId>com.qiao.mask</groupId>
         <artifactId>spring-cloud-mask</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.qiao</groupId>
+    <groupId>com.qiao.mask</groupId>
     <artifactId>mask-user</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mask-user</name>
@@ -16,6 +15,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <codingapi.txlcn.version>5.0.2.RELEASE</codingapi.txlcn.version>
     </properties>
 
     <dependencies>
@@ -52,14 +52,32 @@
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.codingapi.txlcn</groupId>
+            <artifactId>txlcn-tc</artifactId>
+            <version>5.0.2.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                </exclusion>
+            </exclusions>
 
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.197</version>
+        </dependency>
 
+        <dependency>
+            <groupId>com.codingapi.txlcn</groupId>
+            <artifactId>txlcn-txmsg-netty</artifactId>
+            <version>5.0.2.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -164,6 +182,19 @@
             <artifactId>mapstruct-processor</artifactId>
             <version>1.2.0.Final</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.qiao.mask</groupId>
+            <artifactId>common-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!--SpringCloud OAuth2-->
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>2.3.4.RELEASE</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -171,6 +202,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
             </plugin>
         </plugins>
     </build>
